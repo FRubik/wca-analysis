@@ -62,3 +62,4 @@ output/
 *.parquet
 *.tsv
 *.zip
+*.ipynb
