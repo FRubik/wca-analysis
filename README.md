@@ -30,15 +30,35 @@ O projeto utiliza os arquivos TSV disponibilizados pela WCA e realiza consultas 
 
 ```text
 .
-├── data/
-│   └── WCA_export_*.tsv
-├── notebooks/
-│   └── analysis.ipynb
-├── outputs/
-│   └── index.html
-├── README.md
-└── requirements.txt
+├── main.py                 # ponto de entrada: gera o index.html
+├── wca_report/
+│   ├── config.py           # caminhos, recortes e parâmetros do mapa
+│   ├── db.py               # conexão DuckDB (materializa os TSVs em tabelas)
+│   ├── queries.py          # consultas SQL -> DataFrames
+│   ├── charts.py           # figuras Plotly (linhas, presença, etc.)
+│   ├── coverage.py         # mapa de cobertura (união de círculos + seletores)
+│   └── report.py           # página HTML final com abas
+├── tsv/
+│   └── WCA_export_*.tsv     # dados oficiais da WCA (não versionados)
+├── index.html              # relatório gerado (deploy via GitHub Pages)
+├── explore.ipynb           # notebook exploratório original (histórico)
+├── requirements.txt
+└── README.md
 ```
+
+## Como gerar o relatório
+
+```bash
+pip install -r requirements.txt
+python main.py
+```
+
+O comando lê os TSVs em `tsv/`, executa as análises e escreve o `index.html`
+(página única com abas **Competições** e **Competidores**). Basta versionar o
+`index.html` gerado — o GitHub Pages publica o relatório automaticamente.
+
+Parâmetros de análise (anos, recortes geográficos, raios do mapa de cobertura)
+ficam centralizados em `wca_report/config.py`.
 
 ## Principais Análises
 
